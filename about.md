@@ -58,14 +58,21 @@ title: About Me
 [测评文章](https://www.bilibili.com/read/cv16096636/)
 [B站测评视频]( https://search.bilibili.com/all?keyword=%E5%AF%8C%E6%96%AFFLYSKY%20ST8&from_source=webtop_search&spm_id_from=333.1007&search_source=5)
 [油管测评视频]( https://www.youtube.com/results?search_query=fs+ST8)
+[上架平台]( https://item.taobao.com/item.htm?spm=a21n57.1.item.3.1b1b523cMPGHqZ&priceTId=2150428017188756018975933e1ec7&utparam=%7B%22aplus_abtest%22:%22a5010c3b4e9bf94563f2c5155c364452%22%7D&id=672417345905&ns=1&abbucket=16&skuId=5027964878648)
 
 ### 富斯FLYSKY NV14穿越机遥控 
 该项目为专穿越机打造的遥控，才用opentx开源系统，面向ToC,外观做了颠覆性设计，用户反响强烈，年销量一万台左右。
 
 **市场反馈：**
+[油管测评视频]( https://www.youtube.com/results?search_query=flysky+nv14)
 [B站测评视频]( https://search.bilibili.com/all?keyword=flysky%E5%AF%8C%E6%96%AF+nv14&from_source=webtop_search&spm_id_from=333.1007&search_source=5)
 [油管测评视频]( https://www.youtube.com/results?search_query=flysky+nv14)
+[上架平台]( https://detail.tmall.com/item.htm?abbucket=1&id=571684189651&rn=5ac4060b8abad75e72adf30d7ba64cf1&spm=a1z10.5-b.w4011-22495830523.70.47be5da2b9BnpF&skuId=3873699506273)
 
+### 乐聚Cube 教学套件
+该项目是开发一款针对学校机构的STEAM教学套件，通过 app编程达到控制硬件的效果，实现初级的物联网应用，主要供公司旗下的培训教育基地使用。
+[上架平台]( https://detail.tmall.com/item.htm?id=630188455360&rn=895bff4a349b13c80bc351a45977c089&spm=a1z10.3-b.w4011-21418244614.102.38ff3476WQS3gO&skuId=4591126953652)
+[官方网站](https://www.lejurobot.com/cubecn/)
 
 ## 教育背景
 ---
