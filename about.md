@@ -66,7 +66,9 @@ title: About Me
 
 产品型号ST8，市场面向国内外，定位于入门级别，外观新颖，功能稳定，操作有逻辑易用，价格低廉，年销量五万台左右。
 
-<a href="{{ site.baseurl }}/AXURE_ST8/首页.html" target="_blank">查看 Axure 原型</a>
+<a href="{{ site.baseurl }}/axure/st8/首页.html" target="_blank">查看 Axure 原型</a>
+
+[st8需求文档]({{ site.baseurl }}/photo/ST8需求文档.pdf)
 
 **市场反馈：**
 [测评文章](https://www.bilibili.com/read/cv16096636/)
