@@ -50,11 +50,16 @@ title: About Me
 
 ## 项目经验
 ---
-### 推云后台设备管理系统
+### 推云设备管理方案
 
-针对智能对讲机设备进行绑定、检测管理的后台项目
+针对智能对讲机设备进行绑定、检测管理的后台；以及前台APP、web页使用，整体方案项目
 
 <a href="{{ site.baseurl }}/axure/推云后台管理系统原型/后台首页.html" target="_blank">查看 Axure 推云后台管理系统原型</a>
+
+<a href="{{ site.baseurl }}/axure/Ptalk 智能门店管理平台-web端/index.html" target="_blank">查看 Axure Ptalk智能门店web端原型</a>
+
+<a href="{{ site.baseurl }}/axure/Ptalk智能门店app/index.html" target="_blank">查看 Axure Ptalk智能门店app端原型</a>
+
 
 
 ### 富斯FLYSKY ST8无人机遥控
