@@ -53,7 +53,9 @@ title: About Me
 ### 富斯FLYSKY ST8无人机遥控
 
 产品型号ST8，市场面向国内外，定位于入门级别，外观新颖，功能稳定，操作有逻辑易用，价格低廉，年销量五万台左右。
-<a href="{{ site.baseurl }}/axure_st8/首页.html" target="_blank">查看 Axure 原型</a>
+
+<a href="{{ site.baseurl }}/AXURE_ST8/首页.html" target="_blank">查看 Axure 原型</a>
+
 **市场反馈：**
 [测评文章](https://www.bilibili.com/read/cv16096636/)
 [B站测评视频]( https://search.bilibili.com/all?keyword=%E5%AF%8C%E6%96%AFFLYSKY%20ST8&from_source=webtop_search&spm_id_from=333.1007&search_source=5)
