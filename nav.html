@@ -2172,8 +2172,13 @@ let iconCacheLoaded = false;
 function loadIconCache() {
   fetch('/assets/nav-icons.json')
     .then(r => r.json())
-    .then(data => { iconCache = data; iconCacheLoaded = true; })
-    .catch(() => {}); // Silently fail, fall back to DuckDuckGo
+    .then(data => {
+      iconCache = data;
+      iconCacheLoaded = true;
+      // Re-render to update icons that failed on first pass
+      renderBookmarks();
+    })
+    .catch(() => {});
 }
 
 function getFavicon(link) {
