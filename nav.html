@@ -1,0 +1,2583 @@
+---
+layout: null
+permalink: /nav/
+title: 导航
+---
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width,initial-scale=1,user-scalable=no">
+<title>导航 · Leeson's</title>
+<link rel="icon" href="/favicon.ico">
+<link rel="apple-touch-icon" href="/apple-touch-icon.png">
+<style>
+:root {
+  --font-base: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, "Helvetica Neue", Arial, "Noto Sans", "PingFang SC", "Microsoft YaHei", sans-serif;
+  --radius: 3px;
+  --search-w: 520px;
+  --search-h: 48px;
+  --submit-w: 60px;
+  --primary: #2d2d2d;
+  --secondary: #888;
+  --border: #d9d9d9;
+  --light: #f5f5f5;
+  --mid: #e5e5e5;
+  --dark: #4c4c4c;
+  --white: #fff;
+  --base-bg: #ededed;
+  --main-bg: #fff;
+  --block-bg: #f5f5f5;
+  --input-bg: #fff;
+  --panel-bg: #fff;
+  --focus-bg: #f0f0f0;
+}
+[data-theme="dark"] {
+  --primary: #ddd;
+  --secondary: #888;
+  --border: #3a3a3a;
+  --light: #2a2a2a;
+  --mid: #333;
+  --dark: #aaa;
+  --white: #e0e0e0;
+  --base-bg: #1a1a1a;
+  --main-bg: #222;
+  --block-bg: #1c1c1c;
+  --input-bg: #2d2d2d;
+  --panel-bg: #252525;
+  --focus-bg: #2a2a2a;
+}
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{-webkit-text-size-adjust:100%;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;scroll-behavior:smooth}
+body{max-width:1440px;min-height:100vh;padding:50px 80px;margin:0 auto;font-family:var(--font-base);font-size:16px;line-height:1.25;background:var(--base-bg);color:var(--primary);transition:background .2s,color .2s}
+a{color:inherit;text-decoration:none}
+button,input{border:0;font:inherit;outline:none;background:none;color:inherit}
+input[type="search"]::-webkit-search-cancel-button{display:none}
+ul,ol{list-style:none}
+img{display:block;max-width:100%}
+
+/* Header */
+.header{display:flex;height:150px;align-items:center;justify-content:space-between;padding:0 80px}
+.header-logo{font-size:38px;font-weight:400;transition:color .15s;cursor:pointer}
+.header-logo:hover{color:var(--secondary)}
+.header-actions{display:flex;gap:4px}
+.header-btn{display:flex;align-items:center;justify-content:center;padding:8px;margin-right:-8px;border-radius:var(--radius);font-size:20px;cursor:pointer;transition:color .1s;color:var(--secondary)}
+.header-btn:hover{background:var(--block-bg);color:var(--primary)}
+
+/* Search */
+.search-section{padding:12px 0 48px}
+.search-wrap{position:relative;max-width:var(--search-w);margin:0 auto}
+.search-inner{display:flex;height:var(--search-h);border-radius:var(--radius);background:var(--block-bg);overflow:hidden;transition:background .15s}
+.search-engine{display:flex;align-items:center;padding:0 12px;cursor:pointer;color:var(--secondary);opacity:.7;transition:opacity .15s;gap:4px}
+.search-engine:hover{opacity:1}
+.search-engine img{width:22px;height:22px;border-radius:3px}
+.search-engine-arrow{font-size:10px;margin-left:2px;opacity:.5}
+.search-input{flex:1;min-width:0;padding:0 4px;color:var(--primary);background:transparent}
+.search-input::placeholder{color:var(--secondary)}
+.search-clear{display:flex;align-items:center;padding:0 12px;cursor:pointer;color:var(--secondary);opacity:.6;transition:opacity .15s;font-size:14px}
+.search-clear:hover{opacity:1}
+.search-submit{display:flex;align-items:center;justify-content:center;width:var(--submit-w);border-radius:0 var(--radius) var(--radius) 0;font-size:18px;cursor:pointer;color:var(--dark);background:transparent;transition:color .1s,background .1s ease-in-out}
+.search-submit:hover,.search-submit.active{background:var(--dark);color:var(--white)}
+
+/* Dropdown */
+.search-dropdown{position:absolute;z-index:100;top:100%;left:0;width:calc(100% - var(--submit-w));margin-top:-1px;border:1px solid var(--border);border-radius:0 0 var(--radius) var(--radius);background:var(--panel-bg);max-height:290px;overflow-y:auto;box-shadow:0 4px 16px rgba(0,0,0,.08)}
+.search-dropdown::-webkit-scrollbar{width:6px}
+.search-dropdown::-webkit-scrollbar-thumb{background:var(--mid);border-radius:3px}
+.dropdown-item{display:flex;align-items:center;justify-content:space-between;padding:10px 14px;cursor:pointer;transition:background .1s;font-size:14px}
+.dropdown-item:hover,.dropdown-item.active{background:var(--focus-bg)}
+.dropdown-item-left{display:flex;align-items:center;gap:10px}
+.dropdown-item img{width:18px;height:18px;border-radius:2px;opacity:.7}
+.dropdown-key{color:var(--secondary);font-size:12px;font-weight:500}
+.dropdown-tips{display:flex;justify-content:center;gap:12px;padding:8px;font-size:11px;color:var(--secondary);background:var(--block-bg);border-top:1px solid var(--border)}
+.autocomplete-item{padding:8px 20px;cursor:pointer;transition:background .1s;font-size:14px;border-top:1px solid var(--border)}
+.autocomplete-item:first-child{border-top:none}
+.autocomplete-item:hover,.autocomplete-item.active{background:var(--focus-bg)}
+
+/* Bookmarks */
+.bookmarks-section{}
+.categories{position:relative;max-width:1130px;padding:0 40px;margin:0 auto;overflow:hidden}
+.categories::before,.categories::after{content:"";position:absolute;top:32px;height:42px;padding-right:16px}
+.categories::before{z-index:10;left:40px;box-shadow:inset 8px 0 8px -4px var(--base-bg)}
+.categories::after{right:40px;box-shadow:inset -8px 0 8px -4px var(--base-bg)}
+.cat-tabs{position:relative;padding:32px 0;font-size:0;text-align:center;white-space:nowrap;overflow-x:auto;scrollbar-width:none}
+.cat-tabs::-webkit-scrollbar{display:none}
+.cat-tab{display:inline-block;height:42px;padding:10px 20px;border-bottom:2px solid transparent;margin-right:20px;overflow:hidden;color:var(--secondary);font-size:16px;white-space:nowrap;cursor:pointer;transition:color .1s,border-color .1s}
+.cat-tab:last-child{margin-right:0}
+.cat-tab:hover,.cat-tab.active{color:var(--primary);border-bottom-color:var(--secondary)}
+
+.bookmarks-list{padding-bottom:64px}
+.link-group{position:relative;display:flex;margin-bottom:16px}
+.link-group:last-child{margin-bottom:0}
+.group-head{position:relative;display:flex;max-width:10%;flex:0 0 10%;overflow:hidden;color:var(--secondary);align-items:center}
+.group-head::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;box-shadow:inset -6px 0 6px 0 var(--base-bg);pointer-events:none}
+.group-name{white-space:nowrap}
+.link-list{display:flex;max-width:90%;flex:0 0 90%;overflow:hidden}
+.link-item{max-width:16.666667%;flex:0 0 16.666667%}
+.link-center .group-head{justify-content:center}
+.link-center .link-item{display:flex;justify-content:center}
+.link-card{position:relative;display:inline-flex;align-items:center;max-width:100%;padding:8px;border-radius:var(--radius);overflow:hidden;transition:background .1s ease-out}
+.link-card::after{content:"";position:absolute;top:0;left:0;width:100%;height:100%;box-shadow:inset -6px 0 6px 0 var(--base-bg);transition:opacity .1s ease-out}
+.link-card:hover{background:var(--mid)}
+.link-card:hover::after{opacity:0}
+.link-icon{width:20px;height:20px;margin-right:8px;flex-shrink:0;border-radius:2px}
+.link-name{overflow:hidden;text-overflow:ellipsis;white-space:nowrap}
+.more-indicator{position:absolute;top:0;bottom:0;right:-1em;margin:auto 0;color:var(--secondary);font-size:12px;opacity:.4}
+.more-indicator{position:absolute;right:-8px;top:50%;transform:translateY(-50%);color:var(--secondary);font-size:12px;opacity:.4}
+
+/* Footer */
+.footer{display:flex;height:150px;align-items:center;justify-content:space-between;padding:0 80px;font-size:14px;color:var(--secondary)}
+.footer-left{display:flex;align-items:center;gap:16px}
+.footer-link{transition:color .15s;cursor:pointer}
+.footer-link:hover{color:var(--primary)}
+.footer-theme{display:flex;align-items:center;gap:4px;padding:4px 8px;border-radius:var(--radius);cursor:pointer;transition:background .15s,color .15s}
+.footer-theme:hover{background:var(--block-bg);color:var(--primary)}
+.footer-theme-icon{font-size:15px}
+
+/* Edit Mode */
+.edit-bar{display:flex;align-items:center;justify-content:center;gap:8px;padding:20px 0}
+.edit-btn{padding:6px 14px;border-radius:var(--radius);font-size:12px;color:var(--secondary);cursor:pointer;border:1px solid var(--border);transition:all .15s;white-space:nowrap}
+.edit-btn:hover{color:var(--primary);border-color:var(--secondary)}
+.edit-btn.active{background:var(--primary);color:var(--white);border-color:var(--primary)}
+.edit-btn.danger:hover{color:#e74c3c;border-color:#e74c3c}
+
+/* Inline Edit Panel */
+.edit-panel{position:absolute;z-index:50;min-width:200px;padding:12px;border-radius:6px;background:var(--panel-bg);box-shadow:0 4px 20px rgba(0,0,0,.12);border:1px solid var(--border);animation:slideUp .15s ease}
+.edit-panel input{display:block;width:100%;padding:8px 10px;margin-bottom:8px;border:1px solid var(--border);border-radius:var(--radius);font-size:13px;color:var(--primary);background:var(--input-bg)}
+.edit-panel input:focus{border-color:var(--primary)}
+.edit-panel .ep-actions{display:flex;gap:6px}
+.edit-panel .ep-btn{padding:5px 14px;border-radius:var(--radius);font-size:12px;cursor:pointer;transition:all .15s}
+.edit-panel .ep-save{background:var(--primary);color:var(--white)}
+.edit-panel .ep-save:hover{opacity:.85}
+.edit-panel .ep-delete{color:#e74c3c;margin-left:auto}
+.edit-panel .ep-delete:hover{text-decoration:underline}
+
+/* Edit mode - tab add button */
+.tab-add{display:inline-flex;align-items:center;justify-content:center;height:42px;padding:0 16px;color:var(--secondary);font-size:20px;cursor:pointer;transition:color .1s;vertical-align:top}
+.tab-add:hover{color:var(--primary)}
+
+/* Edit mode - group add button */
+.group-add{padding:12px 0;color:var(--secondary);font-size:14px;cursor:pointer;transition:color .1s;text-align:center}
+.group-add:hover{color:var(--primary)}
+
+/* Modal */
+.modal-overlay{position:fixed;inset:0;z-index:1000;background:rgba(0,0,0,.4);display:flex;align-items:center;justify-content:center;padding:20px;animation:fadeIn .2s ease}
+.modal{background:var(--panel-bg);border-radius:8px;width:100%;max-width:500px;max-height:80vh;overflow-y:auto;box-shadow:0 20px 60px rgba(0,0,0,.15)}
+.modal-header{display:flex;align-items:center;justify-content:space-between;padding:16px 20px;border-bottom:1px solid var(--border)}
+.modal-title{font-size:16px;font-weight:600}
+.modal-close{width:32px;height:32px;display:flex;align-items:center;justify-content:center;border-radius:var(--radius);cursor:pointer;color:var(--secondary);font-size:18px;transition:all .15s}
+.modal-close:hover{background:var(--focus-bg);color:var(--primary)}
+.modal-body{padding:20px;display:flex;flex-direction:column;gap:16px}
+.form-group{display:flex;flex-direction:column;gap:6px}
+.form-label{font-size:12px;font-weight:600;color:var(--secondary);text-transform:uppercase;letter-spacing:.04em}
+.form-input{padding:10px 12px;border-radius:var(--radius);border:1px solid var(--border);font-size:14px;color:var(--primary);background:var(--input-bg);transition:border-color .15s}
+.form-input:focus{border-color:var(--primary)}
+.form-row{display:flex;gap:8px}
+.form-row .form-input{flex:1}
+.form-actions{display:flex;gap:8px;padding-top:8px}
+.btn{padding:10px 20px;border-radius:var(--radius);font-size:14px;cursor:pointer;transition:all .15s;font-weight:500}
+.btn-primary{background:var(--primary);color:var(--white)}
+.btn-primary:hover{opacity:.85}
+.btn-secondary{border:1px solid var(--border);color:var(--secondary)}
+.btn-secondary:hover{color:var(--primary);border-color:var(--secondary)}
+.btn-sm{padding:5px 10px;font-size:12px}
+.btn-danger{color:#e74c3c;border:1px solid transparent}
+.btn-danger:hover{background:#fdf0ef;border-color:#e74c3c}
+.tag-list{display:flex;flex-wrap:wrap;gap:6px}
+.tag{display:flex;align-items:center;gap:6px;padding:4px 10px;border-radius:20px;font-size:12px;background:var(--block-bg);color:var(--secondary)}
+.tag button{color:var(--secondary);cursor:pointer;font-size:14px;line-height:1;transition:color .15s}
+.tag button:hover{color:#e74c3c}
+
+/* Animations */
+@keyframes fadeIn{from{opacity:0}to{opacity:1}}
+@keyframes slideUp{from{opacity:0;transform:translateY(8px)}to{opacity:1;transform:translateY(0)}}
+
+/* Loading / State */
+.empty-state{text-align:center;padding:40px 20px;color:var(--secondary);font-size:14px}
+.empty-state-icon{font-size:40px;margin-bottom:12px;opacity:.4}
+
+/* Responsive */
+@media (max-width:834px) {
+  body{padding:30px 40px}
+  .header{padding:0 40px;height:108px}
+  .header-logo{font-size:34px}
+  .search-section{padding:8px 0 32px}
+  .search-wrap{max-width:80%}
+  .bookmarks-section{}
+  .categories{padding:0 32px}
+  .categories::before{left:32px;top:24px;height:38px}
+  .categories::after{right:32px;top:24px;height:38px}
+  .bookmarks-list{padding-bottom:48px}
+  .cat-tabs{padding:24px 0}
+  .cat-tab{height:38px;padding:8px 10px;margin-right:10px;font-size:15px}
+  .link-card{padding:4px}
+  .link-icon{width:20px;height:20px;margin-right:4px}
+  .footer{height:108px;padding:0 40px}
+}
+@media (max-width:600px) {
+  body{padding:20px 16px}
+  .header{padding:0;height:80px}
+  .header-logo{font-size:32px}
+  .header-btn{font-size:18px}
+  .search-section{padding:8px 0 32px}
+  .search-wrap{max-width:100%}
+  .search-inner{height:42px}
+  .search-engine img{width:20px;height:20px}
+  .search-input{font-size:14px}
+  .search-submit{width:48px;font-size:16px}
+  .search-dropdown{width:100%}
+  .bookmarks-section{}
+  .categories{padding:0 20px}
+  .categories::before,.categories::after{top:16px;height:28px}
+  .categories::before{left:20px}
+  .categories::after{right:20px}
+  .cat-tabs{padding:16px 0;margin:0 -20px}
+  .cat-tab{height:28px;padding:4px 5px;margin-right:16px;font-size:15px;line-height:1.2}
+  .bookmarks-list{padding-bottom:28px}
+  .link-group{margin-bottom:14px}
+  .group-head{max-width:15%;flex:0 0 15%}
+  .group-head::after{box-shadow:inset -2px 0 2px 0 var(--base-bg);pointer-events:none}
+  .link-list{max-width:85%;flex:0 0 85%;flex-wrap:wrap;margin:-4px 0}
+  .link-item{max-width:33.333333%;flex:0 0 33.333333%;margin:4px 0}
+  .link-card{padding:4px}
+  .link-card::after{box-shadow:inset -2px 0 2px 0 var(--base-bg)}
+  .link-icon{width:18px;height:18px;margin-right:4px}
+  .more-indicator{display:none}
+  .footer{height:auto;padding:32px 0;flex-direction:column;gap:12px;align-items:flex-start}
+  .bookmarks-list{padding-bottom:30px}
+}
+
+/* Transitions */
+.fade-enter-active,.fade-leave-active{transition:opacity .15s}
+.fade-enter-from,.fade-leave-to{opacity:0}
+</style>
+</head>
+<body>
+
+<!-- Header -->
+<header class="header">
+  <div class="header-logo" onclick="location.href='/'" style="cursor:pointer">🌊 导航</div>
+</header>
+
+<!-- Search -->
+<section class="search-section">
+  <div class="search-wrap">
+    <div class="search-inner" id="searchInner">
+      <div class="search-engine" id="searchEngine" onclick="toggleEngineList()">
+        <img id="engineIcon" src="" alt="">
+        <span class="search-engine-arrow">▾</span>
+      </div>
+      <input type="search" class="search-input" id="searchInput"
+        placeholder="搜索或输入 # 切换引擎…"
+        autocomplete="off" autocorrect="off" autocapitalize="off" autofocus>
+      <div class="search-clear" id="searchClear" onclick="clearSearch()" style="display:none">✕</div>
+      <button class="search-submit" id="searchSubmit" onclick="doSearch()">🔍</button>
+    </div>
+    <div class="search-dropdown" id="engineDropdown" style="display:none"></div>
+    <div class="search-dropdown" id="autocompleteDropdown" style="display:none"></div>
+  </div>
+</section>
+
+<!-- Bookmarks -->
+<section class="bookmarks-section">
+  <div class="categories" id="categories"></div>
+  <div class="bookmarks-list" id="bookmarksList"></div>
+  <div class="edit-bar" id="editBar">
+    <button class="edit-btn" id="editBtn" onclick="toggleEdit()">✎ 编辑书签</button>
+    <button class="edit-btn" onclick="exportData()">⬇ 导出</button>
+    <button class="edit-btn" onclick="importData()">⬆ 导入</button>
+    <button class="edit-btn danger" onclick="resetData()">↺ 重置</button>
+    <button class="edit-btn" id="themeToggleBtn" onclick="toggleTheme()">🌙 暗色模式</button>
+  </div>
+  <div id="editPanel" class="edit-panel" style="display:none"></div>
+</section>
+
+<!-- Footer -->
+<footer class="footer">
+  <div class="footer-left">
+    <span>© 2026 Leeson's</span>
+    <a href="/" class="footer-link">← 返回博客</a>
+  </div>
+
+</footer>
+
+<!-- Add/Edit Modal -->
+<div class="modal-overlay" id="linkModal" style="display:none" onclick="closeModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-title" id="modalTitle">添加链接</span>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">名称</label>
+        <input type="text" class="form-input" id="linkName" placeholder="链接名称">
+      </div>
+      <div class="form-group">
+        <label class="form-label">网址</label>
+        <input type="url" class="form-input" id="linkUrl" placeholder="https://...">
+      </div>
+      <div class="form-group">
+        <label class="form-label">图标 (可选)</label>
+        <input type="url" class="form-input" id="linkIcon" placeholder="留空自动获取">
+      </div>
+      <div class="form-actions">
+        <button class="btn btn-primary" id="modalSave" onclick="saveLink()">保存</button>
+        <button class="btn btn-secondary" onclick="closeModal()">取消</button>
+        <button class="btn btn-danger btn-sm" id="modalDelete" style="display:none;margin-left:auto" onclick="deleteLink()">删除</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Category Modal -->
+<div class="modal-overlay" id="catModal" style="display:none" onclick="closeCatModal(event)">
+  <div class="modal" onclick="event.stopPropagation()">
+    <div class="modal-header">
+      <span class="modal-title" id="catModalTitle">管理分类</span>
+      <button class="modal-close" onclick="closeCatModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <div class="form-group">
+        <label class="form-label">当前分类</label>
+        <div class="tag-list" id="catTagList"></div>
+      </div>
+      <div class="form-row">
+        <input type="text" class="form-input" id="newCatName" placeholder="新分类名称">
+        <button class="btn btn-primary" onclick="addCategory()">添加</button>
+      </div>
+      <div class="form-row">
+        <input type="text" class="form-input" id="newGroupName" placeholder="当前分类下新增分组">
+        <button class="btn btn-secondary" onclick="addGroup()">添加分组</button>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script>
+// ============================================================
+// DATA
+// ============================================================
+const DEFAULT_DATA = {
+  categories: [
+    {
+        "name": "日常",
+        "groups": [
+            {
+                "name": "社交",
+                "links": [
+                    {
+                        "name": "微博",
+                        "url": "https://weibo.com/"
+                    },
+                    {
+                        "name": "知乎",
+                        "url": "https://www.zhihu.com/"
+                    },
+                    {
+                        "name": "小红书",
+                        "url": "https://www.xiaohongshu.com/"
+                    },
+                    {
+                        "name": "贴吧",
+                        "url": "https://tieba.baidu.com/"
+                    },
+                    {
+                        "name": "抖音",
+                        "url": "https://www.douyin.com/"
+                    },
+                    {
+                        "name": "豆瓣",
+                        "url": "https://www.douban.com/"
+                    }
+                ]
+            },
+            {
+                "name": "购物",
+                "links": [
+                    {
+                        "name": "淘宝网",
+                        "url": "https://www.taobao.com/"
+                    },
+                    {
+                        "name": "京东",
+                        "url": "https://www.jd.com/"
+                    },
+                    {
+                        "name": "天猫",
+                        "url": "https://www.tmall.com/"
+                    },
+                    {
+                        "name": "苏宁易购",
+                        "url": "https://www.suning.com/"
+                    },
+                    {
+                        "name": "唯品会",
+                        "url": "https://www.vip.com/"
+                    },
+                    {
+                        "name": "天猫超市",
+                        "url": "https://chaoshi.tmall.com/"
+                    }
+                ]
+            },
+            {
+                "name": "视频",
+                "links": [
+                    {
+                        "name": "腾讯视频",
+                        "url": "https://v.qq.com/"
+                    },
+                    {
+                        "name": "爱奇艺",
+                        "url": "https://www.iqiyi.com/"
+                    },
+                    {
+                        "name": "优酷",
+                        "url": "https://www.youku.com/"
+                    },
+                    {
+                        "name": "芒果TV",
+                        "url": "https://www.mgtv.com/"
+                    },
+                    {
+                        "name": "哔哩哔哩",
+                        "url": "https://www.bilibili.com/"
+                    },
+                    {
+                        "name": "AcFun",
+                        "url": "https://www.acfun.cn/"
+                    }
+                ]
+            },
+            {
+                "name": "门户",
+                "links": [
+                    {
+                        "name": "腾讯网",
+                        "url": "https://www.qq.com/"
+                    },
+                    {
+                        "name": "网易",
+                        "url": "https://www.163.com/"
+                    },
+                    {
+                        "name": "新浪网",
+                        "url": "https://www.sina.com.cn/"
+                    },
+                    {
+                        "name": "搜狐",
+                        "url": "https://www.sohu.com/"
+                    },
+                    {
+                        "name": "凤凰网",
+                        "url": "https://www.ifeng.com/"
+                    },
+                    {
+                        "name": "央视网",
+                        "url": "https://www.cctv.com/"
+                    }
+                ]
+            },
+            {
+                "name": "资讯",
+                "links": [
+                    {
+                        "name": "今日头条",
+                        "url": "https://www.toutiao.com/"
+                    },
+                    {
+                        "name": "ZAKER",
+                        "url": "https://www.myzaker.com/"
+                    },
+                    {
+                        "name": "澎湃新闻",
+                        "url": "https://www.thepaper.cn/"
+                    },
+                    {
+                        "name": "环球网",
+                        "url": "https://www.huanqiu.com/"
+                    },
+                    {
+                        "name": "虎嗅网",
+                        "url": "https://www.huxiu.com/"
+                    },
+                    {
+                        "name": "界面新闻",
+                        "url": "https://www.jiemian.com/"
+                    }
+                ]
+            },
+            {
+                "name": "发现",
+                "links": [
+                    {
+                        "name": "少数派",
+                        "url": "https://sspai.com/"
+                    },
+                    {
+                        "name": "数字尾巴",
+                        "url": "https://www.dgtle.com/"
+                    },
+                    {
+                        "name": "爱范儿",
+                        "url": "https://www.ifanr.com/"
+                    },
+                    {
+                        "name": "煎蛋",
+                        "url": "https://jandan.net/"
+                    },
+                    {
+                        "name": "虎扑社区",
+                        "url": "https://bbs.hupu.com/"
+                    },
+                    {
+                        "name": "即刻",
+                        "url": "https://web.okjike.com/"
+                    }
+                ]
+            },
+            {
+                "name": "生活",
+                "links": [
+                    {
+                        "name": "携程旅行",
+                        "url": "https://www.ctrip.com/"
+                    },
+                    {
+                        "name": "飞猪旅行",
+                        "url": "https://www.fliggy.com/"
+                    },
+                    {
+                        "name": "大众点评",
+                        "url": "https://www.dianping.com/"
+                    },
+                    {
+                        "name": "马蜂窝",
+                        "url": "https://www.mafengwo.cn/"
+                    },
+                    {
+                        "name": "58同城",
+                        "url": "https://58.com/"
+                    },
+                    {
+                        "name": "中国铁路",
+                        "url": "https://www.12306.cn/index/"
+                    }
+                ]
+            },
+            {
+                "name": "便捷",
+                "links": [
+                    {
+                        "name": "百度翻译",
+                        "url": "https://fanyi.baidu.com/"
+                    },
+                    {
+                        "name": "百度地图",
+                        "url": "https://map.baidu.com/"
+                    },
+                    {
+                        "name": "文件传输助手",
+                        "url": "https://filehelper.weixin.qq.com/"
+                    },
+                    {
+                        "name": "在线转换",
+                        "url": "https://cn.office-converter.com/"
+                    },
+                    {
+                        "name": "文件分享",
+                        "url": "https://wormhole.app/"
+                    },
+                    {
+                        "name": "快递查询",
+                        "url": "https://www.kuaidi100.com/"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "娱乐",
+        "groups": [
+            {
+                "name": "发现",
+                "links": [
+                    {
+                        "name": "36Kr",
+                        "url": "https://www.36kr.com/"
+                    },
+                    {
+                        "name": "Solidot",
+                        "url": "https://www.solidot.org/"
+                    },
+                    {
+                        "name": "IT之家",
+                        "url": "https://www.ithome.com/"
+                    },
+                    {
+                        "name": "Chiphell",
+                        "url": "https://www.chiphell.com/"
+                    },
+                    {
+                        "name": "品玩",
+                        "url": "https://www.pingwest.com/"
+                    },
+                    {
+                        "name": "简书",
+                        "url": "https://www.jianshu.com/"
+                    }
+                ]
+            },
+            {
+                "name": "视频",
+                "links": [
+                    {
+                        "name": "抖音",
+                        "url": "https://www.douyin.com/"
+                    },
+                    {
+                        "name": "快手",
+                        "url": "https://www.kuaishou.com/"
+                    },
+                    {
+                        "name": "西瓜视频",
+                        "url": "https://www.ixigua.com/"
+                    },
+                    {
+                        "name": "好看视频",
+                        "url": "https://haokan.baidu.com/"
+                    },
+                    {
+                        "name": "豆瓣电影",
+                        "url": "https://movie.douban.com/"
+                    },
+                    {
+                        "name": "YouTube",
+                        "url": "https://www.youtube.com/"
+                    }
+                ]
+            },
+            {
+                "name": "直播",
+                "links": [
+                    {
+                        "name": "斗鱼",
+                        "url": "https://www.douyu.com/"
+                    },
+                    {
+                        "name": "虎牙",
+                        "url": "https://www.huya.com/"
+                    },
+                    {
+                        "name": "抖音直播",
+                        "url": "https://live.douyin.com/"
+                    },
+                    {
+                        "name": "快手直播",
+                        "url": "https://live.kuaishou.com/"
+                    },
+                    {
+                        "name": "YY直播",
+                        "url": "https://www.yy.com/"
+                    },
+                    {
+                        "name": "iPanda",
+                        "url": "https://www.ipanda.com/"
+                    }
+                ]
+            },
+            {
+                "name": "音乐",
+                "links": [
+                    {
+                        "name": "QQ音乐",
+                        "url": "https://y.qq.com/"
+                    },
+                    {
+                        "name": "网易云音乐",
+                        "url": "https://music.163.com/"
+                    },
+                    {
+                        "name": "酷狗音乐",
+                        "url": "https://www.kugou.com/"
+                    },
+                    {
+                        "name": "咪咕音乐",
+                        "url": "https://music.migu.cn/"
+                    },
+                    {
+                        "name": "酷我音乐",
+                        "url": "https://www.kuwo.cn/"
+                    },
+                    {
+                        "name": "5sing",
+                        "url": "http://5sing.kugou.com/"
+                    }
+                ]
+            },
+            {
+                "name": "动漫",
+                "links": [
+                    {
+                        "name": "腾讯动漫",
+                        "url": "https://ac.qq.com/"
+                    },
+                    {
+                        "name": "哔哩哔哩漫画",
+                        "url": "https://manga.bilibili.com/"
+                    },
+                    {
+                        "name": "快看漫画",
+                        "url": "https://www.kuaikanmanhua.com/"
+                    },
+                    {
+                        "name": "动漫之家",
+                        "url": "https://www.idmzj.com/"
+                    },
+                    {
+                        "name": "看漫画",
+                        "url": "https://www.kanman.com/"
+                    },
+                    {
+                        "name": "漫客栈",
+                        "url": "https://www.mkzhan.com/"
+                    }
+                ]
+            },
+            {
+                "name": "游戏",
+                "links": [
+                    {
+                        "name": "Steam",
+                        "url": "https://store.steampowered.com/"
+                    },
+                    {
+                        "name": "Nintendo",
+                        "url": "https://www.nintendo.co.jp/"
+                    },
+                    {
+                        "name": "PlayStation",
+                        "url": "https://www.playstation.com/"
+                    },
+                    {
+                        "name": "Xbox",
+                        "url": "https://www.xbox.com/"
+                    },
+                    {
+                        "name": "NGA论坛",
+                        "url": "https://bbs.nga.cn/"
+                    },
+                    {
+                        "name": "游民星空",
+                        "url": "https://www.gamersky.com/"
+                    }
+                ]
+            },
+            {
+                "name": "体育",
+                "links": [
+                    {
+                        "name": "腾讯体育",
+                        "url": "https://sports.qq.com/"
+                    },
+                    {
+                        "name": "搜狐体育",
+                        "url": "https://sports.sohu.com/"
+                    },
+                    {
+                        "name": "新浪体育",
+                        "url": "https://sports.sina.com.cn/"
+                    },
+                    {
+                        "name": "央视体育",
+                        "url": "https://sports.cctv.com/"
+                    },
+                    {
+                        "name": "虎扑",
+                        "url": "https://www.hupu.com/"
+                    },
+                    {
+                        "name": "直播吧",
+                        "url": "https://www.zhibo8.cc/"
+                    }
+                ]
+            },
+            {
+                "name": "文学",
+                "links": [
+                    {
+                        "name": "起点中文网",
+                        "url": "https://www.qidian.com/"
+                    },
+                    {
+                        "name": "纵横中文网",
+                        "url": "https://www.zongheng.com/"
+                    },
+                    {
+                        "name": "红袖添香",
+                        "url": "https://www.hongxiu.com/"
+                    },
+                    {
+                        "name": "微信读书",
+                        "url": "https://weread.qq.com/"
+                    },
+                    {
+                        "name": "豆瓣阅读",
+                        "url": "https://read.douban.com/"
+                    },
+                    {
+                        "name": "喜马拉雅",
+                        "url": "https://www.ximalaya.com/"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "生活",
+        "groups": [
+            {
+                "name": "购物",
+                "links": [
+                    {
+                        "name": "网易严选",
+                        "url": "https://you.163.com/"
+                    },
+                    {
+                        "name": "考拉海购",
+                        "url": "https://www.kaola.com/"
+                    },
+                    {
+                        "name": "阿里巴巴",
+                        "url": "https://www.1688.com/"
+                    },
+                    {
+                        "name": "当当网",
+                        "url": "https://www.dangdang.com/"
+                    },
+                    {
+                        "name": "国美在线",
+                        "url": "https://www.gome.com.cn/"
+                    },
+                    {
+                        "name": "亚马逊中国",
+                        "url": "https://www.amazon.cn/"
+                    }
+                ]
+            },
+            {
+                "name": "出行",
+                "links": [
+                    {
+                        "name": "携程旅行",
+                        "url": "https://www.ctrip.com/"
+                    },
+                    {
+                        "name": "飞猪旅行",
+                        "url": "https://www.fliggy.com/"
+                    },
+                    {
+                        "name": "去哪儿",
+                        "url": "https://www.qunar.com/"
+                    },
+                    {
+                        "name": "爱彼迎",
+                        "url": "https://www.airbnb.cn/"
+                    },
+                    {
+                        "name": "马蜂窝",
+                        "url": "https://www.mafengwo.cn/"
+                    },
+                    {
+                        "name": "中国铁路",
+                        "url": "https://www.12306.cn/index/"
+                    }
+                ]
+            },
+            {
+                "name": "工作",
+                "links": [
+                    {
+                        "name": "BOSS直聘",
+                        "url": "https://www.zhipin.com/"
+                    },
+                    {
+                        "name": "拉勾网",
+                        "url": "https://www.lagou.com/"
+                    },
+                    {
+                        "name": "前程无忧",
+                        "url": "https://www.51job.com/"
+                    },
+                    {
+                        "name": "智联招聘",
+                        "url": "https://www.zhaopin.com/"
+                    },
+                    {
+                        "name": "猎聘",
+                        "url": "https://www.liepin.com/"
+                    },
+                    {
+                        "name": "领英",
+                        "url": "https://www.linkedin.com/"
+                    }
+                ]
+            },
+            {
+                "name": "美食",
+                "links": [
+                    {
+                        "name": "下厨房",
+                        "url": "https://www.xiachufang.com/"
+                    },
+                    {
+                        "name": "美食天下",
+                        "url": "https://www.meishichina.com/"
+                    },
+                    {
+                        "name": "美食杰",
+                        "url": "https://www.meishij.net/"
+                    },
+                    {
+                        "name": "豆果美食",
+                        "url": "https://www.douguo.com/"
+                    },
+                    {
+                        "name": "做饭指南",
+                        "url": "https://cook.aiurs.co/"
+                    },
+                    {
+                        "name": "三菜一汤",
+                        "url": "https://www.3c1t.com/"
+                    }
+                ]
+            },
+            {
+                "name": "房产",
+                "links": [
+                    {
+                        "name": "安居客",
+                        "url": "https://www.anjuke.com/"
+                    },
+                    {
+                        "name": "房天下",
+                        "url": "https://www.fang.com/"
+                    },
+                    {
+                        "name": "楼盘网",
+                        "url": "https://www.loupan.com/"
+                    },
+                    {
+                        "name": "链家网",
+                        "url": "https://www.lianjia.com/"
+                    },
+                    {
+                        "name": "贝壳",
+                        "url": "https://www.ke.com/"
+                    },
+                    {
+                        "name": "我爱我家",
+                        "url": "https://www.5i5j.com/"
+                    }
+                ]
+            },
+            {
+                "name": "汽车",
+                "links": [
+                    {
+                        "name": "汽车之家",
+                        "url": "https://www.autohome.com.cn/"
+                    },
+                    {
+                        "name": "易车网",
+                        "url": "https://www.yiche.com/"
+                    },
+                    {
+                        "name": "懂车帝",
+                        "url": "https://www.dongchedi.com/"
+                    },
+                    {
+                        "name": "太平洋汽车",
+                        "url": "https://www.pcauto.com.cn/"
+                    },
+                    {
+                        "name": "爱卡汽车",
+                        "url": "https://www.xcar.com.cn/"
+                    },
+                    {
+                        "name": "二手车之家",
+                        "url": "https://www.che168.com/"
+                    }
+                ]
+            },
+            {
+                "name": "财经",
+                "links": [
+                    {
+                        "name": "财新网",
+                        "url": "https://www.caixin.com/"
+                    },
+                    {
+                        "name": "格隆汇",
+                        "url": "https://www.gelonghui.com/"
+                    },
+                    {
+                        "name": "华尔街日报",
+                        "url": "https://cn.wsj.com/"
+                    },
+                    {
+                        "name": "雪球网",
+                        "url": "https://xueqiu.com/"
+                    },
+                    {
+                        "name": "东方财富",
+                        "url": "https://www.eastmoney.com/"
+                    },
+                    {
+                        "name": "金十数据",
+                        "url": "https://www.jin10.com/"
+                    }
+                ]
+            },
+            {
+                "name": "便民",
+                "links": [
+                    {
+                        "name": "电话查询",
+                        "url": "https://www.114best.com/"
+                    },
+                    {
+                        "name": "网速测试",
+                        "url": "https://www.speedtest.net/"
+                    },
+                    {
+                        "name": "默沙东诊疗",
+                        "url": "https://www.msdmanuals.cn/"
+                    },
+                    {
+                        "name": "用药助手",
+                        "url": "https://drugs.dxy.cn/"
+                    },
+                    {
+                        "name": "卫星云图",
+                        "url": "https://zoom.earth/"
+                    },
+                    {
+                        "name": "台风路径",
+                        "url": "https://typhoon.slt.zj.gov.cn/"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "学习",
+        "groups": [
+            {
+                "name": "网课",
+                "links": [
+                    {
+                        "name": "网易公开课",
+                        "url": "https://open.163.com/"
+                    },
+                    {
+                        "name": "网易云课堂",
+                        "url": "https://study.163.com/"
+                    },
+                    {
+                        "name": "腾讯课堂",
+                        "url": "https://ke.qq.com/"
+                    },
+                    {
+                        "name": "中国大学MOOC",
+                        "url": "https://www.icourse163.org/"
+                    },
+                    {
+                        "name": "慕课网",
+                        "url": "https://www.imooc.com/"
+                    },
+                    {
+                        "name": "Udemy",
+                        "url": "https://www.udemy.com/"
+                    }
+                ]
+            },
+            {
+                "name": "文库",
+                "links": [
+                    {
+                        "name": "百度文库",
+                        "url": "https://wenku.baidu.com/"
+                    },
+                    {
+                        "name": "360文库",
+                        "url": "https://wenku.so.com/"
+                    },
+                    {
+                        "name": "道客巴巴",
+                        "url": "https://www.doc88.com/"
+                    },
+                    {
+                        "name": "豆丁网",
+                        "url": "https://www.docin.com/"
+                    },
+                    {
+                        "name": "合同范文",
+                        "url": "https://cont.12315.cn/"
+                    },
+                    {
+                        "name": "裁判文书",
+                        "url": "https://wenshu.court.gov.cn/"
+                    }
+                ]
+            },
+            {
+                "name": "学术",
+                "links": [
+                    {
+                        "name": "百度学术",
+                        "url": "https://xueshu.baidu.com/"
+                    },
+                    {
+                        "name": "谷歌学术",
+                        "url": "https://scholar.google.com/"
+                    },
+                    {
+                        "name": "必应学术",
+                        "url": "https://www.bing.com/academic"
+                    },
+                    {
+                        "name": "中国知网",
+                        "url": "https://www.cnki.net/"
+                    },
+                    {
+                        "name": "万方数据",
+                        "url": "https://www.wanfangdata.com.cn/"
+                    },
+                    {
+                        "name": "维普网",
+                        "url": "http://www.cqvip.com/"
+                    }
+                ]
+            },
+            {
+                "name": "词典",
+                "links": [
+                    {
+                        "name": "有道词典",
+                        "url": "https://www.youdao.com/"
+                    },
+                    {
+                        "name": "剑桥词典",
+                        "url": "https://dictionary.cambridge.org/zhs/"
+                    },
+                    {
+                        "name": "柯林斯词典",
+                        "url": "https://www.collinsdictionary.com/zh/"
+                    },
+                    {
+                        "name": "汉语词典",
+                        "url": "https://www.zdic.net/"
+                    },
+                    {
+                        "name": "维基词典",
+                        "url": "https://zh.wiktionary.org/"
+                    },
+                    {
+                        "name": "中日词典",
+                        "url": "https://cjjc.weblio.jp/"
+                    }
+                ]
+            },
+            {
+                "name": "资讯",
+                "links": [
+                    {
+                        "name": "腾讯教育",
+                        "url": "https://new.qq.com/ch/edu/"
+                    },
+                    {
+                        "name": "搜狐教育",
+                        "url": "https://learning.sohu.com/"
+                    },
+                    {
+                        "name": "网易教育",
+                        "url": "https://edu.163.com/"
+                    },
+                    {
+                        "name": "中国教育在线",
+                        "url": "https://www.eol.cn/"
+                    },
+                    {
+                        "name": "沪江英语",
+                        "url": "https://www.hjenglish.com/"
+                    },
+                    {
+                        "name": "无忧考网",
+                        "url": "https://www.51test.net/"
+                    }
+                ]
+            },
+            {
+                "name": "模考",
+                "links": [
+                    {
+                        "name": "考满分",
+                        "url": "https://www.kmf.com/"
+                    },
+                    {
+                        "name": "会计题库",
+                        "url": "https://www.chinaacc.com/tiku/"
+                    },
+                    {
+                        "name": "LeetCode",
+                        "url": "https://leetcode-cn.com/"
+                    },
+                    {
+                        "name": "打字练习",
+                        "url": "https://www.typing.com/student"
+                    },
+                    {
+                        "name": "驾校一点通",
+                        "url": "https://www.jxedt.com/"
+                    },
+                    {
+                        "name": "驾考宝典",
+                        "url": "https://www.jiakaobaodian.com/"
+                    }
+                ]
+            },
+            {
+                "name": "便捷",
+                "links": [
+                    {
+                        "name": "多邻国",
+                        "url": "https://www.duolingo.cn/"
+                    },
+                    {
+                        "name": "幕布",
+                        "url": "https://mubu.com/"
+                    },
+                    {
+                        "name": "书格",
+                        "url": "https://www.shuge.org/"
+                    },
+                    {
+                        "name": "损坏文件生成",
+                        "url": "https://www.fakefilegenerator.com/generate-file.php"
+                    },
+                    {
+                        "name": "文本对比",
+                        "url": "https://www.diffchecker.com/"
+                    },
+                    {
+                        "name": "WolframAlpha",
+                        "url": "https://www.wolframalpha.com/"
+                    }
+                ]
+            },
+            {
+                "name": "查询",
+                "links": [
+                    {
+                        "name": "学信网",
+                        "url": "https://www.chsi.com.cn/"
+                    },
+                    {
+                        "name": "普通话水平",
+                        "url": "https://www.cltt.org/"
+                    },
+                    {
+                        "name": "考试报名",
+                        "url": "https://www.neea.edu.cn/html1/folder/1607/298-1.htm"
+                    },
+                    {
+                        "name": "成绩查询",
+                        "url": "https://cjcx.neea.edu.cn/"
+                    },
+                    {
+                        "name": "证书查询",
+                        "url": "https://zscx.neea.edu.cn/"
+                    },
+                    {
+                        "name": "托福网考",
+                        "url": "https://toefl.neea.cn/"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "开发",
+        "groups": [
+            {
+                "name": "社区",
+                "links": [
+                    {
+                        "name": "稀土掘金",
+                        "url": "https://juejin.cn/"
+                    },
+                    {
+                        "name": "CSDN",
+                        "url": "https://www.csdn.net/"
+                    },
+                    {
+                        "name": "V2EX",
+                        "url": "https://www.v2ex.com/"
+                    },
+                    {
+                        "name": "Reddit",
+                        "url": "https://www.reddit.com/"
+                    },
+                    {
+                        "name": "StackOverflow",
+                        "url": "https://stackoverflow.com/"
+                    },
+                    {
+                        "name": "HackerNews",
+                        "url": "https://news.ycombinator.com/"
+                    }
+                ]
+            },
+            {
+                "name": "平台",
+                "links": [
+                    {
+                        "name": "GitHub",
+                        "url": "https://github.com/"
+                    },
+                    {
+                        "name": "GitLab",
+                        "url": "https://gitlab.com/"
+                    },
+                    {
+                        "name": "Gitee",
+                        "url": "https://gitee.com/"
+                    },
+                    {
+                        "name": "阿里云",
+                        "url": "https://www.aliyun.com/"
+                    },
+                    {
+                        "name": "腾讯云",
+                        "url": "https://cloud.tencent.com/"
+                    },
+                    {
+                        "name": "AWS",
+                        "url": "https://aws.amazon.com/"
+                    }
+                ]
+            },
+            {
+                "name": "智能",
+                "links": [
+                    {
+                        "name": "ChatGPT",
+                        "url": "https://chat.openai.com/"
+                    },
+                    {
+                        "name": "Gemini",
+                        "url": "https://gemini.google.com/"
+                    },
+                    {
+                        "name": "Coze",
+                        "url": "https://www.coze.com/"
+                    },
+                    {
+                        "name": "Poe",
+                        "url": "https://poe.com/"
+                    },
+                    {
+                        "name": "文心一言",
+                        "url": "https://yiyan.baidu.com/"
+                    },
+                    {
+                        "name": "通义千问",
+                        "url": "https://tongyi.aliyun.com/qianwen/"
+                    }
+                ]
+            },
+            {
+                "name": "工具",
+                "links": [
+                    {
+                        "name": "IPIP.NET",
+                        "url": "https://www.ipip.net/"
+                    },
+                    {
+                        "name": "RegExr",
+                        "url": "https://regexr.com/"
+                    },
+                    {
+                        "name": "NameBeta",
+                        "url": "https://namebeta.com/"
+                    },
+                    {
+                        "name": "domcomp",
+                        "url": "https://www.domcomp.com/"
+                    },
+                    {
+                        "name": "CodeSandbox",
+                        "url": "https://codesandbox.io/"
+                    },
+                    {
+                        "name": "CodePen",
+                        "url": "https://codepen.io/"
+                    }
+                ]
+            },
+            {
+                "name": "分析",
+                "links": [
+                    {
+                        "name": "Ping.pe",
+                        "url": "https://ping.pe/"
+                    },
+                    {
+                        "name": "17CE",
+                        "url": "https://17ce.com/"
+                    },
+                    {
+                        "name": "DNS Lookup",
+                        "url": "https://www.digitalocean.com/community/tools/dns"
+                    },
+                    {
+                        "name": "PageSpeed",
+                        "url": "https://pagespeed.web.dev/"
+                    },
+                    {
+                        "name": "VirusTotal",
+                        "url": "https://www.virustotal.com/"
+                    },
+                    {
+                        "name": "阿里云运维检测",
+                        "url": "https://boce.aliyun.com/"
+                    }
+                ]
+            },
+            {
+                "name": "文档",
+                "links": [
+                    {
+                        "name": "MDN",
+                        "url": "https://developer.mozilla.org/"
+                    },
+                    {
+                        "name": "Android文档",
+                        "url": "https://developer.android.com/docs"
+                    },
+                    {
+                        "name": "Apple文档",
+                        "url": "https://developer.apple.com/cn/documentation/"
+                    },
+                    {
+                        "name": "W3school",
+                        "url": "https://www.w3school.com.cn/"
+                    },
+                    {
+                        "name": "微信小程序",
+                        "url": "https://developers.weixin.qq.com/miniprogram/dev/framework/"
+                    },
+                    {
+                        "name": "Can I use",
+                        "url": "https://caniuse.com/"
+                    }
+                ]
+            },
+            {
+                "name": "博文",
+                "links": [
+                    {
+                        "name": "阮一峰博客",
+                        "url": "https://www.ruanyifeng.com/blog/"
+                    },
+                    {
+                        "name": "王垠博客",
+                        "url": "https://www.yinwang.org/"
+                    },
+                    {
+                        "name": "张鑫旭博客",
+                        "url": "https://www.zhangxinxu.com/"
+                    },
+                    {
+                        "name": "美团技术团队",
+                        "url": "https://tech.meituan.com/"
+                    },
+                    {
+                        "name": "凹凸实验室",
+                        "url": "https://aotu.io/"
+                    },
+                    {
+                        "name": "异次元",
+                        "url": "https://www.iplaysoft.com/"
+                    }
+                ]
+            },
+            {
+                "name": "资源",
+                "links": [
+                    {
+                        "name": "ProductHunt",
+                        "url": "https://www.producthunt.com/"
+                    },
+                    {
+                        "name": "npm",
+                        "url": "https://www.npmjs.com/"
+                    },
+                    {
+                        "name": "Docker Hub",
+                        "url": "https://hub.docker.com/"
+                    },
+                    {
+                        "name": "Homebrew",
+                        "url": "https://formulae.brew.sh/"
+                    },
+                    {
+                        "name": "CSS-Tricks",
+                        "url": "https://css-tricks.com/"
+                    },
+                    {
+                        "name": "Internet Archive",
+                        "url": "https://archive.org/"
+                    }
+                ]
+            }
+        ]
+    },
+    {
+        "name": "设计",
+        "groups": [
+            {
+                "name": "灵感",
+                "links": [
+                    {
+                        "name": "Dribbble",
+                        "url": "https://dribbble.com/"
+                    },
+                    {
+                        "name": "Behance",
+                        "url": "https://www.behance.net/"
+                    },
+                    {
+                        "name": "站酷",
+                        "url": "https://www.zcool.com.cn/"
+                    },
+                    {
+                        "name": "图虫创意",
+                        "url": "https://stock.tuchong.com/"
+                    },
+                    {
+                        "name": "UICN",
+                        "url": "https://www.ui.cn/"
+                    },
+                    {
+                        "name": "Land-book",
+                        "url": "https://land-book.com/"
+                    }
+                ]
+            },
+            {
+                "name": "图库",
+                "links": [
+                    {
+                        "name": "Unsplash",
+                        "url": "https://unsplash.com/"
+                    },
+                    {
+                        "name": "Pinterest",
+                        "url": "https://www.pinterest.com/"
+                    },
+                    {
+                        "name": "Pixabay",
+                        "url": "https://pixabay.com/"
+                    },
+                    {
+                        "name": "花瓣",
+                        "url": "https://huaban.com/"
+                    },
+                    {
+                        "name": "500px",
+                        "url": "https://500px.com/"
+                    },
+                    {
+                        "name": "StockSnap",
+                        "url": "https://stocksnap.io/"
+                    }
+                ]
+            },
+            {
+                "name": "素材",
+                "links": [
+                    {
+                        "name": "站酷海洛",
+                        "url": "https://www.hellorf.com/"
+                    },
+                    {
+                        "name": "千图网",
+                        "url": "https://www.58pic.com/"
+                    },
+                    {
+                        "name": "昵图网",
+                        "url": "https://www.nipic.com/"
+                    },
+                    {
+                        "name": "Freepik",
+                        "url": "https://www.freepik.com/"
+                    },
+                    {
+                        "name": "Pexels",
+                        "url": "https://www.pexels.com/"
+                    },
+                    {
+                        "name": "Shutterstock",
+                        "url": "https://www.shutterstock.com/"
+                    }
+                ]
+            },
+            {
+                "name": "图标",
+                "links": [
+                    {
+                        "name": "Flaticon",
+                        "url": "https://www.flaticon.com/"
+                    },
+                    {
+                        "name": "iconfont",
+                        "url": "https://www.iconfont.cn/"
+                    },
+                    {
+                        "name": "Iconfinder",
+                        "url": "https://www.iconfinder.com/"
+                    },
+                    {
+                        "name": "NounProject",
+                        "url": "https://thenounproject.com/"
+                    },
+                    {
+                        "name": "Icons8",
+                        "url": "https://icons8.com/"
+                    },
+                    {
+                        "name": "CSS Icons",
+                        "url": "https://css.gg/"
+                    }
+                ]
+            },
+            {
+                "name": "颜色",
+                "links": [
+                    {
+                        "name": "Adobe Color",
+                        "url": "https://color.adobe.com/"
+                    },
+                    {
+                        "name": "ColorHunt",
+                        "url": "https://colorhunt.co/"
+                    },
+                    {
+                        "name": "Coolors",
+                        "url": "https://coolors.co/"
+                    },
+                    {
+                        "name": "WebGradients",
+                        "url": "https://webgradients.com/"
+                    },
+                    {
+                        "name": "Colllor",
+                        "url": "http://colllor.com/"
+                    },
+                    {
+                        "name": "ColourCode",
+                        "url": "https://www.toptal.com/designers/colourcode"
+                    }
+                ]
+            },
+            {
+                "name": "工具",
+                "links": [
+                    {
+                        "name": "在线PS",
+                        "url": "https://ps.gaoding.com/"
+                    },
+                    {
+                        "name": "格式转换",
+                        "url": "https://cloudconvert.com/"
+                    },
+                    {
+                        "name": "TinyPNG",
+                        "url": "https://tinypng.com/"
+                    },
+                    {
+                        "name": "求字体",
+                        "url": "https://www.qiuziti.com/"
+                    },
+                    {
+                        "name": "矢量图转换",
+                        "url": "https://vectormagic.com/"
+                    },
+                    {
+                        "name": "贝塞尔曲线练习",
+                        "url": "https://bezier.method.ac/"
+                    }
+                ]
+            },
+            {
+                "name": "规范",
+                "links": [
+                    {
+                        "name": "Android",
+                        "url": "https://developer.android.com/design"
+                    },
+                    {
+                        "name": "Apple",
+                        "url": "https://developer.apple.com/design/"
+                    },
+                    {
+                        "name": "Google",
+                        "url": "https://design.google/"
+                    },
+                    {
+                        "name": "Microsoft",
+                        "url": "https://www.microsoft.com/design"
+                    },
+                    {
+                        "name": "Material",
+                        "url": "https://material.io/"
+                    },
+                    {
+                        "name": "Ant Design",
+                        "url": "https://ant.design/"
+                    }
+                ]
+            },
+            {
+                "name": "教程",
+                "links": [
+                    {
+                        "name": "优设网",
+                        "url": "https://www.uisdc.com/"
+                    },
+                    {
+                        "name": "站酷学习",
+                        "url": "https://www.gogoup.com/"
+                    },
+                    {
+                        "name": "优优教程",
+                        "url": "https://uiiiuiii.com/"
+                    },
+                    {
+                        "name": "虎课网",
+                        "url": "https://huke88.com/"
+                    },
+                    {
+                        "name": "TUTS+",
+                        "url": "https://design.tutsplus.com/"
+                    },
+                    {
+                        "name": "Medium",
+                        "url": "https://medium.design/"
+                    }
+                ]
+            }
+        ]
+    }
+],
+  settings: {
+    theme: "light",
+    engine: "baidu"
+  }
+};
+
+const ENGINES = [
+  { slug: "google", key: "gg", name: "Google", url: "https://www.google.com/search?q={q}" },
+  { slug: "bing", key: "bi", name: "Bing", url: "https://www.bing.com/search?q={q}" },
+  { slug: "baidu", key: "bd", name: "百度", url: "https://www.baidu.com/s?wd={q}" },
+  { slug: "sogou", key: "sg", name: "搜狗", url: "https://www.sogou.com/web?query={q}" },
+  { slug: "duckduckgo", key: "ddg", name: "DuckDuckGo", url: "https://duckduckgo.com/?q={q}" },
+  { slug: "yahoo", key: "yh", name: "Yahoo", url: "https://search.yahoo.com/search?p={q}" },
+  { slug: "youtube", key: "yt", name: "YouTube", url: "https://www.youtube.com/results?search_query={q}" },
+  { slug: "github", key: "gh", name: "GitHub", url: "https://github.com/search?q={q}" },
+  { slug: "wikipedia", key: "wiki", name: "Wikipedia", url: "https://en.wikipedia.org/w/index.php?search={q}" },
+  { slug: "twitter", key: "tw", name: "Twitter/X", url: "https://x.com/search?q={q}" },
+  { slug: "reddit", key: "rd", name: "Reddit", url: "https://www.reddit.com/search?q={q}" },
+  { slug: "amazon", key: "am", name: "Amazon", url: "https://www.amazon.com/s?k={q}" },
+  { slug: "bilibili", key: "bli", name: "B站", url: "https://search.bilibili.com/all?keyword={q}" },
+  { slug: "zhihu", key: "zh", name: "知乎", url: "https://www.zhihu.com/search?type=content&q={q}" },
+  { slug: "douban", key: "db", name: "豆瓣", url: "https://www.douban.com/search?q={q}" }
+];
+
+// ============================================================
+// STATE
+// ============================================================
+let state = loadState();
+let activeTab = 0;
+let activeEngine = null;
+let showEngines = false;
+let editingMode = false;
+let editingLink = null; // { catIdx, groupIdx, linkIdx } or null
+let editingCatIdx = null; // which category's groups we're managing
+
+// ============================================================
+// INIT
+// ============================================================
+const DATA_VERSION = 11;
+function loadState() {
+  try {
+    const raw = localStorage.getItem('nav_state');
+    if (raw) {
+      const parsed = JSON.parse(raw);
+      // Version check: reset if data version is outdated
+      if (parsed._version !== DATA_VERSION) {
+        localStorage.removeItem('nav_state');
+        return JSON.parse(JSON.stringify(DEFAULT_DATA));
+      }
+      // Merge with defaults to handle new fields
+      return {
+        categories: parsed.categories || DEFAULT_DATA.categories,
+        settings: { ...DEFAULT_DATA.settings, ...(parsed.settings || {}) },
+        _version: DATA_VERSION
+      };
+    }
+  } catch(e) { /* ignore */ }
+  return JSON.parse(JSON.stringify(DEFAULT_DATA));
+}
+
+function saveState() {
+  state._version = DATA_VERSION;
+  localStorage.setItem('nav_state', JSON.stringify(state));
+}
+
+function init() {
+  // Find active engine
+  const engineSlug = state.settings.engine || 'google';
+  activeEngine = ENGINES.find(e => e.slug === engineSlug) || ENGINES[0];
+  
+  // Set theme
+  applyTheme();
+  
+  // Render
+  updateEngineIcon();
+  renderCategories();
+  renderBookmarks();
+  
+  // Events
+  const input = document.getElementById('searchInput');
+  input.addEventListener('input', onSearchInput);
+  input.addEventListener('keydown', onSearchKeydown);
+  document.addEventListener('click', onGlobalClick);
+}
+
+function applyTheme() {
+  document.documentElement.setAttribute('data-theme', state.settings.theme);
+  const isDark = state.settings.theme === 'dark';
+  const btn = document.getElementById('themeToggleBtn');
+  if (btn) btn.innerHTML = isDark ? '☀️ 亮色模式' : '🌙 暗色模式';
+}
+
+function toggleTheme() {
+  state.settings.theme = state.settings.theme === 'dark' ? 'light' : 'dark';
+  applyTheme();
+  saveState();
+}
+
+// ============================================================
+// SEARCH ENGINE
+// ============================================================
+function updateEngineIcon() {
+  document.getElementById('engineIcon').src = getEngineIcon(activeEngine.slug);
+}
+
+function getEngineIcon(slug) {
+  // Use favicon services
+  const urls = {
+    google: 'https://www.google.com/favicon.ico',
+    bing: 'https://www.bing.com/favicon.ico',
+    baidu: 'https://www.baidu.com/favicon.ico',
+    sogou: 'https://www.sogou.com/favicon.ico',
+    duckduckgo: 'https://duckduckgo.com/favicon.ico',
+    yahoo: 'https://www.yahoo.com/favicon.ico',
+    youtube: 'https://www.youtube.com/favicon.ico',
+    github: 'https://github.com/favicon.ico',
+    wikipedia: 'https://en.wikipedia.org/favicon.ico',
+    twitter: 'https://x.com/favicon.ico',
+    reddit: 'https://www.reddit.com/favicon.ico',
+    amazon: 'https://www.amazon.com/favicon.ico',
+    bilibili: 'https://www.bilibili.com/favicon.ico',
+    zhihu: 'https://www.zhihu.com/favicon.ico',
+    douban: 'https://www.douban.com/favicon.ico'
+  };
+  return urls[slug] || `https://www.google.com/s2/favicons?domain=${slug}.com&sz=32`;
+}
+
+function toggleEngineList() {
+  showEngines = !showEngines;
+  const dropdown = document.getElementById('engineDropdown');
+  if (showEngines) {
+    const input = document.getElementById('searchInput');
+    const keyword = input.value.startsWith('#') ? input.value.slice(1).trim() : '';
+    renderEngineList(keyword);
+    dropdown.style.display = 'block';
+  } else {
+    dropdown.style.display = 'none';
+  }
+}
+
+function renderEngineList(filter) {
+  const dropdown = document.getElementById('engineDropdown');
+  let engines = ENGINES;
+  if (filter) {
+    const q = filter.toLowerCase();
+    engines = ENGINES.filter(e => 
+      e.slug.includes(q) || e.name.toLowerCase().includes(q) || e.key.includes(q)
+    );
+  }
+  
+  if (engines.length === 0) {
+    dropdown.innerHTML = '<div class="dropdown-item" style="color:var(--secondary)">无匹配引擎</div>';
+  } else {
+    dropdown.innerHTML = engines.map(e => `
+      <div class="dropdown-item" onclick="selectEngine('${e.slug}')">
+        <div class="dropdown-item-left">
+          <img src="${getEngineIcon(e.slug)}" alt="" onerror="this.style.display='none'">
+          <span>${e.name}</span>
+        </div>
+        <span class="dropdown-key">#${e.key}</span>
+      </div>
+    `).join('');
+  }
+  
+  if (filter && engines.length > 0) {
+    dropdown.innerHTML += `
+      <div class="dropdown-tips">
+        <span>↑/↓ 切换</span>
+        <span>Enter 选中</span>
+        <span>Tab 补全</span>
+      </div>`;
+  }
+}
+
+function selectEngine(slug) {
+  activeEngine = ENGINES.find(e => e.slug === slug) || ENGINES[0];
+  state.settings.engine = slug;
+  saveState();
+  updateEngineIcon();
+  showEngines = false;
+  document.getElementById('engineDropdown').style.display = 'none';
+  document.getElementById('autocompleteDropdown').style.display = 'none';
+  document.getElementById('searchInput').value = '';
+  document.getElementById('searchClear').style.display = 'none';
+  document.getElementById('searchInput').focus();
+}
+
+// ============================================================
+// SEARCH
+// ============================================================
+function doSearch() {
+  const input = document.getElementById('searchInput');
+  const keyword = input.value.trim();
+  if (!keyword) { input.focus(); return; }
+  const url = activeEngine.url.replace('{q}', encodeURIComponent(keyword));
+  window.open(url, '_blank');
+}
+
+function clearSearch() {
+  const input = document.getElementById('searchInput');
+  input.value = '';
+  input.focus();
+  document.getElementById('searchClear').style.display = 'none';
+  document.getElementById('autocompleteDropdown').style.display = 'none';
+}
+
+function onSearchInput(e) {
+  const val = e.target.value;
+  document.getElementById('searchClear').style.display = val ? 'flex' : 'none';
+  
+  if (val.startsWith('#')) {
+    const filter = val.slice(1);
+    if (filter.includes(' ')) {
+      // Completed engine switch with space
+      const slug = filter.trim();
+      const eng = ENGINES.find(en => en.key === slug || en.slug === slug);
+      if (eng) selectEngine(eng.slug);
+    } else {
+      showEngines = true;
+      renderEngineList(filter);
+      document.getElementById('engineDropdown').style.display = 'block';
+      document.getElementById('autocompleteDropdown').style.display = 'none';
+    }
+  } else {
+    document.getElementById('engineDropdown').style.display = 'none';
+    showEngines = false;
+    
+    // Autocomplete
+    if (val.length > 0 && ['google', 'bing', 'baidu'].includes(activeEngine.slug)) {
+      fetchAutocomplete(val);
+    } else {
+      document.getElementById('autocompleteDropdown').style.display = 'none';
+    }
+  }
+}
+
+let autocompleteTimer = null;
+function fetchAutocomplete(q) {
+  clearTimeout(autocompleteTimer);
+  autocompleteTimer = setTimeout(() => {
+    const slug = activeEngine.slug;
+    if (slug === 'google') {
+      const script = document.createElement('script');
+      const callback = 'ac_cb_' + Date.now();
+      window[callback] = function(data) {
+        const suggestions = data[1] || [];
+        renderAutocomplete(suggestions.map(s => [s[0], s[0]]));
+        delete window[callback];
+        document.head.removeChild(script);
+      };
+      script.src = `https://suggestqueries.google.com/complete/search?client=chrome&q=${encodeURIComponent(q)}&callback=${callback}`;
+      script.onerror = () => {
+        document.getElementById('autocompleteDropdown').style.display = 'none';
+      };
+      document.head.appendChild(script);
+    } else if (slug === 'baidu') {
+      const script = document.createElement('script');
+      const callback = 'cb_' + Date.now();
+      window[callback] = function(data) {
+        const suggestions = (data.s || []).map(s => [s, s]);
+        renderAutocomplete(suggestions);
+        delete window[callback];
+        document.head.removeChild(script);
+      };
+      script.src = `https://suggestion.baidu.com/su?wd=${encodeURIComponent(q)}&cb=${callback}`;
+      script.onerror = () => {
+        document.getElementById('autocompleteDropdown').style.display = 'none';
+      };
+      document.head.appendChild(script);
+    }
+  }, 200);
+}
+
+function renderAutocomplete(items) {
+  const dropdown = document.getElementById('autocompleteDropdown');
+  if (items.length === 0) {
+    dropdown.style.display = 'none';
+    return;
+  }
+  dropdown.innerHTML = items.map((item, i) => `
+    <div class="autocomplete-item" data-idx="${i}" 
+         onmousedown="selectAutocomplete('${item[0].replace(/'/g, "\\\'")}')">
+      ${item[0]}
+    </div>
+  `).join('');
+  dropdown.style.display = 'block';
+}
+
+function selectAutocomplete(text) {
+  document.getElementById('searchInput').value = text;
+  document.getElementById('autocompleteDropdown').style.display = 'none';
+  doSearch();
+}
+
+function onSearchKeydown(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    if (showEngines) {
+      const first = document.querySelector('#engineDropdown .dropdown-item');
+      if (first) first.click();
+    } else {
+      doSearch();
+    }
+  } else if (e.key === 'Escape') {
+    document.getElementById('engineDropdown').style.display = 'none';
+    document.getElementById('autocompleteDropdown').style.display = 'none';
+    showEngines = false;
+  } else if (e.key === 'Tab' && showEngines) {
+    e.preventDefault();
+    const first = document.querySelector('#engineDropdown .dropdown-item');
+    if (first) first.click();
+  }
+}
+
+function onGlobalClick(e) {
+  if (!e.target.closest('#searchInner') && !e.target.closest('#engineDropdown') && !e.target.closest('#autocompleteDropdown')) {
+    document.getElementById('engineDropdown').style.display = 'none';
+    document.getElementById('autocompleteDropdown').style.display = 'none';
+    showEngines = false;
+  }
+}
+
+// ============================================================
+// BOOKMARKS RENDER
+// ============================================================
+function renderCategories() {
+  const container = document.getElementById('categories');
+  const cats = state.categories;
+  if (cats.length === 0) {
+    container.innerHTML = '';
+    return;
+  }
+  container.innerHTML = `
+    <div class="cat-tabs">
+      ${cats.map((cat, i) => `
+        <div class="cat-tab ${i === activeTab ? 'active' : ''}" onclick="${editingMode ? `showEditPanel(event,'tab',${i},0,0)` : `switchTab(${i})`}">${cat.name}</div>
+      `).join('')}
+      <div class="tab-add" ${editingMode ? `onclick="showEditPanel(event,'tab',${cats.length},0,0)"` : 'style="visibility:hidden"'}>＋</div>
+    </div>
+  `;
+}
+
+function switchTab(idx) {
+  activeTab = idx;
+  renderCategories();
+  renderBookmarks();
+}
+
+function renderBookmarks() {
+  const container = document.getElementById('bookmarksList');
+  const cat = state.categories[activeTab];
+  
+  if (!cat) { container.innerHTML = ''; return; }
+  
+  // Build groups HTML - same structure for both modes
+  let groupsHtml = cat.groups.map((group, gi) => {
+    const gOnclick = editingMode ? `onclick="showEditPanel(event,'group',${activeTab},${gi})" style="cursor:pointer"` : '';
+    return `
+      <div class="link-group">
+        <div class="group-head" ${gOnclick}>
+          <span class="group-name">${group.name}</span>
+        </div>
+        <div class="link-list">
+          ${group.links.map((link, li) => {
+            const lAttr = editingMode 
+              ? `onclick="event.preventDefault();showEditPanel(event,'link',${activeTab},${gi},${li})" style="cursor:pointer"` 
+              : `href="${link.url}" target="_blank"`;
+            return `<div class="link-item"><a class="link-card" ${lAttr}><img class="link-icon" src="${getFavicon(link)}" onerror="this.style.display='none'"><span class="link-name">${link.name}</span></a></div>`;
+          }).join('')}
+          <div class="link-item" style="${editingMode && group.links.length < 6 ? '' : 'visibility:hidden'}"><a class="link-card" style="color:var(--secondary);border:1px dashed var(--border);cursor:pointer" onclick="showEditPanel(event,'link',${activeTab},${gi},${group.links.length})"><span class="link-name">＋</span></a></div>
+        </div>
+      </div>`;
+  }).join('');
+  
+  // Add group button row - always in DOM, hidden in view mode
+  groupsHtml += `<div class="link-group" style="${editingMode ? '' : 'visibility:hidden'}"><div class="group-head" style="cursor:pointer" onclick="showEditPanel(event,'group',${activeTab},${cat.groups.length})"><span class="group-name" style="color:var(--secondary)">＋ 添加分组</span></div><div class="link-list"></div></div>`;
+  
+  container.innerHTML = groupsHtml;
+}
+
+// Use 0x3.com's icon proxy service (fast, cached, supports all Chinese sites)
+function getFavicon(link, size) {
+  if (link.icon) return link.icon;
+  try {
+    const host = new URL(link.url).hostname;
+    return `https://0x3.com/icon?host=${host}`;
+  } catch(e) {
+    return '';
+  }
+}
+
+// ============================================================
+// EDIT MODE
+// ============================================================
+function toggleEdit() {
+  editingMode ? exitEditMode() : enterEditMode();
+}
+
+function enterEditMode() {
+  editingMode = true;
+  document.getElementById('editBtn').classList.add('active');
+  document.getElementById('editBtn').textContent = '✓ 退出编辑';
+  renderCategories();
+  renderBookmarks();
+}
+
+function exitEditMode() {
+  editingMode = false;
+  hideEditPanel();
+  document.getElementById('editBtn').classList.remove('active');
+  document.getElementById('editBtn').textContent = '✎ 编辑书签';
+  renderCategories();
+  renderBookmarks();
+}
+
+// Inline Edit Panel
+let editTarget = null;
+
+function showEditPanel(event, kind, tabIdx, groupIdx, linkIdx) {
+  event.stopPropagation();
+  editTarget = { kind, tabIdx, groupIdx, linkIdx };
+  const panel = document.getElementById('editPanel');
+  const target = event.currentTarget;
+  const rect = target.getBoundingClientRect();
+  
+  let name = '', url = '', isAdd = false;
+  if (kind === 'tab') {
+    isAdd = tabIdx >= state.categories.length;
+    name = isAdd ? '' : state.categories[tabIdx].name;
+  } else if (kind === 'group') {
+    isAdd = groupIdx >= (state.categories[tabIdx]?.groups?.length || 0);
+    name = isAdd ? '' : state.categories[tabIdx].groups[groupIdx].name;
+  } else if (kind === 'link') {
+    const links = state.categories[tabIdx]?.groups[groupIdx]?.links || [];
+    isAdd = linkIdx >= links.length;
+    const link = isAdd ? {} : links[linkIdx];
+    name = link.name || '';
+    url = link.url || '';
+  }
+  
+  panel.innerHTML = `
+    <input type="text" id="epName" value="${name.replace(/"/g,'&quot;')}" placeholder="名称" autofocus>
+    ${kind === 'link' ? `<input type="text" id="epUrl" value="${url.replace(/"/g,'&quot;')}" placeholder="网址 https://...">` : ''}
+    <div class="ep-actions">
+      <button class="ep-btn ep-save" onclick="saveEditPanel()">保存</button>
+      ${!isAdd ? `<button class="ep-btn ep-delete" onclick="deleteEditPanel()">删除</button>` : ''}
+    </div>`;
+  
+  // Position panel near the clicked element
+  panel.style.display = 'block';
+  const panelW = 220;
+  let left = rect.left + window.scrollX;
+  if (left + panelW > window.innerWidth) left = window.innerWidth - panelW - 20;
+  panel.style.left = Math.max(10, left) + 'px';
+  panel.style.top = (rect.bottom + window.scrollY + 4) + 'px';
+  
+  setTimeout(() => document.getElementById('epName')?.focus(), 50);
+}
+
+function saveEditPanel() {
+  if (!editTarget) return;
+  const name = document.getElementById('epName')?.value?.trim() || '';
+  const url = document.getElementById('epUrl')?.value?.trim() || '';
+  
+  if (!name) { hideEditPanel(); return; }
+  
+  const { kind, tabIdx, groupIdx, linkIdx } = editTarget;
+  
+  if (kind === 'tab') {
+    if (linkIdx >= state.categories.length) {
+      state.categories.push({ name, groups: [] });
+    } else {
+      state.categories[tabIdx].name = name;
+    }
+  } else if (kind === 'group') {
+    const cat = state.categories[tabIdx];
+    if (groupIdx >= cat.groups.length) {
+      cat.groups.push({ name, links: [] });
+    } else {
+      cat.groups[groupIdx].name = name;
+    }
+  } else if (kind === 'link') {
+    const cat = state.categories[tabIdx];
+    if (!cat.groups[groupIdx]) cat.groups.push({ name: '默认', links: [] });
+    const links = cat.groups[groupIdx].links;
+    if (linkIdx >= links.length) {
+      if (!url) { hideEditPanel(); return; }
+      links.push({ name, url });
+    } else {
+      links[linkIdx].name = name;
+      if (url) links[linkIdx].url = url;
+    }
+  }
+  
+  saveState();
+  hideEditPanel();
+  renderBookmarks();
+  if (kind === 'tab') renderCategories();
+}
+
+function deleteEditPanel() {
+  if (!editTarget) return;
+  if (!confirm('确定删除？')) return;
+  const { kind, tabIdx, groupIdx, linkIdx } = editTarget;
+  
+  if (kind === 'tab') {
+    state.categories.splice(tabIdx, 1);
+    if (activeTab >= state.categories.length) activeTab = Math.max(0, state.categories.length - 1);
+    renderCategories();
+  } else if (kind === 'group') {
+    state.categories[tabIdx].groups.splice(groupIdx, 1);
+  } else if (kind === 'link') {
+    state.categories[tabIdx].groups[groupIdx].links.splice(linkIdx, 1);
+  }
+  
+  saveState();
+  hideEditPanel();
+  renderBookmarks();
+}
+
+function hideEditPanel() {
+  editTarget = null;
+  document.getElementById('editPanel').style.display = 'none';
+}
+
+// Handle clicks outside edit panel
+document.addEventListener('click', function(e) {
+  if (editingMode && editTarget) {
+    const panel = document.getElementById('editPanel');
+    if (panel && !panel.contains(e.target) && !e.target.closest('.link-card') && !e.target.closest('.group-head') && !e.target.closest('.cat-tab')) {
+      hideEditPanel();
+    }
+  }
+});
+
+let addToGroupIdx = 0;
+function openAddLinkModal() {
+  if (!editingMode) return;
+  addToGroupIdx = 0;
+  editingLink = null;
+  document.getElementById('modalTitle').textContent = '添加链接';
+  document.getElementById('linkName').value = '';
+  document.getElementById('linkUrl').value = '';
+  document.getElementById('linkIcon').value = '';
+  document.getElementById('modalDelete').style.display = 'none';
+  document.getElementById('linkModal').style.display = 'flex';
+  document.getElementById('linkName').focus();
+}
+
+function openAddLinkToGroup(catIdx, groupIdx) {
+  addToGroupIdx = groupIdx;
+  editingLink = null;
+  document.getElementById('modalTitle').textContent = '添加链接';
+  document.getElementById('linkName').value = '';
+  document.getElementById('linkUrl').value = '';
+  document.getElementById('linkIcon').value = '';
+  document.getElementById('modalDelete').style.display = 'none';
+  document.getElementById('linkModal').style.display = 'flex';
+  document.getElementById('linkName').focus();
+}
+
+function saveLink() {
+  const name = document.getElementById('linkName').value.trim();
+  const url = document.getElementById('linkUrl').value.trim();
+  const icon = document.getElementById('linkIcon').value.trim();
+  
+  if (!name || !url) {
+    alert('名称和网址不能为空');
+    return;
+  }
+  
+  const cat = state.categories[activeTab];
+  
+  if (editingLink) {
+    const link = cat.groups[editingLink.groupIdx].links[editingLink.linkIdx];
+    link.name = name;
+    link.url = url;
+    link.icon = icon || undefined;
+  } else {
+    // Add to specified group, or create one
+    if (cat.groups.length === 0) {
+      cat.groups.push({ name: '默认', links: [] });
+    }
+    const targetGroup = cat.groups[addToGroupIdx] || cat.groups[0];
+    const link = { name, url };
+    if (icon) link.icon = icon;
+    targetGroup.links.push(link);
+  }
+  
+  saveState();
+  renderBookmarks();
+  closeModal();
+}
+
+function deleteLink() {
+  if (!editingLink) return;
+  if (!confirm('确定删除这个链接？')) return;
+  
+  const cat = state.categories[editingLink.catIdx];
+  cat.groups[editingLink.groupIdx].links.splice(editingLink.linkIdx, 1);
+  
+  // Clean up empty group
+  if (cat.groups[editingLink.groupIdx].links.length === 0) {
+    cat.groups.splice(editingLink.groupIdx, 1);
+  }
+  
+  saveState();
+  renderBookmarks();
+  closeModal();
+}
+
+function closeModal(e) {
+  if (e && e.target !== document.getElementById('linkModal')) return;
+  document.getElementById('linkModal').style.display = 'none';
+  editingLink = null;
+}
+
+// ============================================================
+// CATEGORY/GROUP MANAGEMENT
+// ============================================================
+function openCatManager() {
+  renderCatTags();
+  document.getElementById('catModal').style.display = 'flex';
+}
+
+function closeCatModal(e) {
+  if (e && e.target !== document.getElementById('catModal')) return;
+  document.getElementById('catModal').style.display = 'none';
+}
+
+function renderCatTags() {
+  const container = document.getElementById('catTagList');
+  container.innerHTML = state.categories.map((cat, i) => `
+    <div class="tag">
+      ${cat.name} (${cat.groups.length}组)
+      ${state.categories.length > 1 ? `<button onclick="deleteCategory(${i})" title="删除分类">×</button>` : ''}
+    </div>
+  `).join('');
+}
+
+function addCategory() {
+  const input = document.getElementById('newCatName');
+  const name = input.value.trim();
+  if (!name) return;
+  state.categories.push({ name, groups: [] });
+  input.value = '';
+  saveState();
+  renderCategories();
+  renderBookmarks();
+  renderCatTags();
+}
+
+function deleteCategory(idx) {
+  if (state.categories.length <= 1) {
+    alert('至少保留一个分类');
+    return;
+  }
+  if (!confirm(`确定删除分类「${state.categories[idx].name}」及其所有书签？`)) return;
+  state.categories.splice(idx, 1);
+  if (activeTab >= state.categories.length) activeTab = state.categories.length - 1;
+  saveState();
+  renderCategories();
+  renderBookmarks();
+  renderCatTags();
+}
+
+function deleteGroup(catIdx, groupIdx) {
+  const group = state.categories[catIdx].groups[groupIdx];
+  if (!confirm(`确定删除分组「${group.name}」及其所有链接？`)) return;
+  state.categories[catIdx].groups.splice(groupIdx, 1);
+  saveState();
+  renderBookmarks();
+}
+
+function addGroup() {
+  const input = document.getElementById('newGroupName');
+  const name = input.value.trim();
+  if (!name || !state.categories[activeTab]) return;
+  state.categories[activeTab].groups.push({ name, links: [] });
+  input.value = '';
+  saveState();
+  renderBookmarks();
+}
+
+// ============================================================
+// IMPORT / EXPORT / RESET
+// ============================================================
+function exportData() {
+  const blob = new Blob([JSON.stringify(state, null, 2)], { type: 'application/json' });
+  const url = URL.createObjectURL(blob);
+  const a = document.createElement('a');
+  a.href = url;
+  a.download = 'nav-backup-' + new Date().toISOString().slice(0,10) + '.json';
+  a.click();
+  URL.revokeObjectURL(url);
+}
+
+function importData() {
+  const input = document.createElement('input');
+  input.type = 'file';
+  input.accept = '.json';
+  input.onchange = (e) => {
+    const file = e.target.files[0];
+    if (!file) return;
+    const reader = new FileReader();
+    reader.onload = (ev) => {
+      try {
+        const data = JSON.parse(ev.target.result);
+        if (data.categories && Array.isArray(data.categories)) {
+          if (!confirm('导入将覆盖当前数据，确定继续？')) return;
+          state.categories = data.categories;
+          if (data.settings) state.settings = { ...state.settings, ...data.settings };
+          activeTab = 0;
+          saveState();
+          init();
+          alert('导入成功！');
+        } else {
+          alert('无效的数据格式');
+        }
+      } catch(err) {
+        alert('解析失败：' + err.message);
+      }
+    };
+    reader.readAsText(file);
+  };
+  input.click();
+}
+
+function resetData() {
+  if (!confirm('确定重置所有书签和设置为默认值？此操作不可恢复！')) return;
+  state = JSON.parse(JSON.stringify(DEFAULT_DATA));
+  activeTab = 0;
+  activeEngine = ENGINES.find(e => e.slug === state.settings.engine) || ENGINES[0];
+  saveState();
+  init();
+  updateEngineIcon();
+}
+
+// ============================================================
+// KEYBOARD SHORTCUTS
+// ============================================================
+document.addEventListener('keydown', function(e) {
+  // Don't trigger shortcuts when typing in inputs (except search)
+  if (e.target.tagName === 'INPUT' && e.target.id !== 'searchInput') return;
+  if (e.target.tagName === 'TEXTAREA') return;
+  if (document.getElementById('editPanel').style.display === 'block') return;
+  if (document.getElementById('catModal').style.display === 'flex') return;
+  
+  // Ctrl/Cmd + K: focus search
+  if ((e.metaKey || e.ctrlKey) && e.key === 'k') {
+    e.preventDefault();
+    document.getElementById('searchInput').focus();
+    document.getElementById('searchInput').select();
+  }
+  
+  // Esc: exit edit mode
+  if (e.key === 'Escape' && editingMode) {
+    exitEditMode();
+  }
+});
+
+// ============================================================
+// STARTUP
+// ============================================================
+init();
+
+// Add keyboard shortcut hint to search placeholder
+document.getElementById('searchInput').placeholder = '搜索 (⌘K) 或输入 # 切换引擎…';
+
+// Modal keyboard support
+document.getElementById('linkName').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    document.getElementById('linkUrl').focus();
+  }
+});
+document.getElementById('linkUrl').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    document.getElementById('linkIcon').focus();
+  }
+});
+document.getElementById('linkIcon').addEventListener('keydown', function(e) {
+  if (e.key === 'Enter') {
+    e.preventDefault();
+    saveLink();
+  }
+});
+document.addEventListener('keydown', function(e) {
+  if (e.key === 'Escape' && document.getElementById('editPanel').style.display === 'block') {
+    hideEditPanel();
+  }
+  if (e.key === 'Escape' && document.getElementById('catModal').style.display === 'flex') {
+    closeCatModal();
+  }
+});
+</script>
+</body>
+</html>
