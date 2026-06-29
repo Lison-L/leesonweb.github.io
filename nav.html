@@ -1848,6 +1848,9 @@ function saveState() {
 }
 
 function init() {
+  // Load icon cache
+  loadIconCache();
+  
   // Find active engine
   const engineSlug = state.settings.engine || 'google';
   activeEngine = ENGINES.find(e => e.slug === engineSlug) || ENGINES[0];
@@ -2162,12 +2165,27 @@ function renderBookmarks() {
   container.innerHTML = groupsHtml;
 }
 
-// Use 0x3.com's icon proxy service (fast, cached, supports all Chinese sites)
-function getFavicon(link, size) {
+// Icon cache - loaded from nav-icons.json on init
+let iconCache = {};
+let iconCacheLoaded = false;
+
+function loadIconCache() {
+  fetch('/assets/nav-icons.json')
+    .then(r => r.json())
+    .then(data => { iconCache = data; iconCacheLoaded = true; })
+    .catch(() => {}); // Silently fail, fall back to DuckDuckGo
+}
+
+function getFavicon(link) {
   if (link.icon) return link.icon;
   try {
     const host = new URL(link.url).hostname;
-    return `https://0x3.com/icon?host=${host}`;
+    // Check icon cache first
+    if (iconCache[host]) return iconCache[host];
+    const key = host.replace(/^www\./, '');
+    if (iconCache[key]) return iconCache[key];
+    // Fall back to DuckDuckGo
+    return `https://icons.duckduckgo.com/ip3/${host}.ico`;
   } catch(e) {
     return '';
   }
